@@ -3,9 +3,15 @@ import * as path from "node:path";
 
 async function readFileAsync() {
     try {
-        const filePath = path.join('assets', '2025-06-14.txt');
-        const content = await fsPromises.readFile(filePath, 'utf-8');
-        console.log(content);
+        const assetsDirectory = 'assets';
+        const files = await fsPromises.readdir(assetsDirectory);
+
+        for (const file of files) {
+            const filePath = path.join(assetsDirectory, file);
+            console.log(`\n--- Reading ${file} ---`);
+            const content = await fsPromises.readFile(filePath, 'utf-8');
+            console.log(content);
+        }
     } catch (error) {
         console.error('Error reading file: ', error);
     }
